@@ -105,31 +105,25 @@ def incluir():
             for proj in projetos:
                 print(proj)
         
-        # Obter os IDs dos projetos principal e relacionado
         idprojeto = input("Digite o ID do projeto principal: ").strip()
         idprojetorelacionado = input("Digite o ID do projeto a ser relacionado: ").strip()
         
-        # Listar todos os projetos e obter os dados para validação
         projetos_dados = Projeto.listar()
-        projetos_ids = [str(p[0]) for p in projetos_dados]  # Ajustado para comparar com o ID do projeto
+        projetos_ids = [str(p[0]) for p in projetos_dados]  
 
-        # Verificar se ambos os projetos existem
         if idprojeto not in projetos_ids or idprojetorelacionado not in projetos_ids:
             print("Um ou ambos os projetos informados não existem no banco.")
         else:
-            # Buscar a situação do projeto principal
             situacao_principal = None
             for p in projetos_dados:
                 if str(p[0]) == idprojeto:  # Usando o ID do projeto corretamente (geralmente p[0] é o ID)
                     situacao_principal = p[2]  # Supondo que a situação esteja na posição 2 (ajuste conforme necessário)
             
-            # Validar a situação do projeto principal
             if situacao_principal is None:
                 print("Não foi possível encontrar o projeto principal.")
             elif situacao_principal != 'Ativo':  # Garantindo que estamos comparando com a string 'Ativo'
                 print("O projeto principal não está ativo.")
             else:
-                # Caso tudo esteja correto, fazer a inserção do projeto relacionado
                 projeto_relacionado = ProjetoRelacionado(
                     idprojeto=idprojeto,
                     idprojetorelacionado=idprojetorelacionado
@@ -261,7 +255,7 @@ def consultar():
         projetos_relacionados = ProjetoRelacionado.listar()
         for pr in projetos_relacionados:
             print(pr)
-    elif opcao == '5':  # Opção para consultar projetos
+    elif opcao == '5':  
         projetos = Projeto.listar()
         for proj in projetos:
             print(proj)
@@ -272,7 +266,7 @@ def atualizar():
     print("2 - Funcionário")
     print("3 - Atividade")
     print("4 - Projeto Relacionado")
-    print("5 - Projeto")  # Adicionando opção para atualizar projeto
+    print("5 - Projeto")  
     opcao = input("Escolha a opção: ")
 
     if opcao == '1':
@@ -361,7 +355,6 @@ def operacoes_especiais():
             datafim = None
             situacao = input("Situação inicial (Pendente ou Em Andamento): ").strip()
 
-            # Validar se a situação é válida
             situacoes_validas = ["Pendente", "Em Andamento"]
             if situacao not in situacoes_validas:
                 print("Situação inválida. As opções válidas são: Pendente ou Em Andamento.")
@@ -457,88 +450,73 @@ def operacoes_especiais():
             print("Projeto incluído com sucesso!")
 
         elif opcao == '5':
-            # Listar projetos
             projetos = Projeto.listar()
             for p in projetos:
                 print(p)
             
             idprojeto = input("ID do projeto: ").strip()
 
-            # Validar se o ID do projeto é válido
             projeto = Projeto.criar_por_id(idprojeto)
             
             if not projeto:
                 print("Projeto não encontrado.")
                 continue
 
-            # Chamar a função para atualizar a situação do projeto
             projeto.atualizar_situacao()
 
         elif opcao == '6':
-            # Listar projetos
             projetos = Projeto.listar()
             for p in projetos:
                 print(p)
             
             idprojeto = input("ID do projeto: ").strip()
 
-            # Validar se o ID do projeto é válido
             projeto = Projeto.criar_por_id(idprojeto)
             
             if not projeto:
                 print("Projeto não encontrado.")
                 continue
 
-            # Chamar a função para atualizar a situação para "Suspenso"
             projeto.atualizar_situacao_suspensa()
 
         elif opcao == '7':
-            # Listar projetos
             projetos = Projeto.listar()
             for p in projetos:
                 print(p)
             
             idprojeto = input("ID do projeto: ").strip()
 
-            # Validar se o ID do projeto é válido
             projeto = Projeto.criar_por_id(idprojeto)
             
             if not projeto:
                 print("Projeto não encontrado.")
                 continue
 
-            # Chamar a função para reativar o projeto
             projeto.atualizar_situacao_reativar()
 
         elif opcao == '8':
             projetos = Projeto.listar()
             for proj in projetos:
                     print(proj)
-            # Obter os IDs dos projetos principal e relacionado
             idprojeto = input("Digite o ID do projeto principal: ").strip()
             idprojetorelacionado = input("Digite o ID do projeto a ser relacionado: ").strip()
             
-            # Listar todos os projetos e obter os dados para validação
             projetos_dados = Projeto.listar()
             projetos_ids = [str(p[0]) for p in projetos_dados]  # Ajustado para comparar com o ID do projeto
 
-            # Verificar se ambos os projetos existem
             if idprojeto not in projetos_ids or idprojetorelacionado not in projetos_ids:
                 print("Um ou ambos os projetos informados não existem no banco.")
             else:
-                # Buscar a situação do projeto principal
                 situacao_principal = None
                 for p in projetos_dados:
                     if str(p[0]) == idprojeto:  # Usando o ID do projeto corretamente (geralmente p[0] é o ID)
                         situacao_principal = p[2]  # Supondo que a situação esteja na posição 2 (ajuste conforme necessário)
                 
-                # Validar a situação do projeto principal
                 if situacao_principal is None:
                     print("Não foi possível encontrar o projeto principal.")
                 elif situacao_principal != 'Ativo':  # Garantindo que estamos comparando com a string 'Ativo'
                     print("O projeto principal não está ativo.")
                 else:
-                    # Caso tudo esteja correto, fazer a inserção do projeto relacionado
                     projeto_relacionado = ProjetoRelacionado(
                         idprojeto=idprojeto,
                         idprojetorelacionado=idprojetorelacionado
