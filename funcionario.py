@@ -46,24 +46,19 @@ class Funcionario:
         con.fechar()
 
     def transferir(self, novo_iddepartamento):
-        # Criar uma conexão com o banco de dados
         con = Conector()
         con.conectar()
         
-        # Definir o SQL de atualização
         sql = """
         UPDATE funcionarios
         SET iddepartamento = %s
         WHERE idfuncionario = %s
         """
     
-        # Passar os parâmetros necessários para a consulta
         params = (novo_iddepartamento, self.idfuncionario)
         
-        # Executar o comando SQL
         con.executar(sql, params)
         
-        # Fechar a conexão com o banco de dados
         con.fechar()
         
         print("Funcionário transferido com sucesso!")
