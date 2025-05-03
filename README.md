@@ -7,3 +7,5 @@ pip install psycopg2-binary
 
 lembre de ter primeiramente o Python instalado em sua máquina, caso ainda não tenha
 Se por acaso, a versão do python em seu computador for antigo, é preciso instalar ainda o Pip, sendo necessário instalar uma versão mais recente do Python.
+
+Também é preciso que para conectar em seu banco de dados, altere as credencias do arquivo DB_CONFIG, que é somente para colocar as credencias configuradas em seu localhost usadas para conectar ao banco.
