@@ -1,0 +1,93 @@
+-- Criação do banco de dados, se já tem esse database, favor retirar essa linha
+CREATE DATABASE "Projetos_Daniel_Arthur";
+
+-- Criação das tabelas
+DROP TABLE IF EXISTS atividades, projetosrelacionamentos, projetos, funcionarios, departamentos CASCADE;
+
+CREATE TABLE departamentos (
+    iddepartamento SERIAL PRIMARY KEY,
+    nmdepartamento VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE funcionarios (
+    idfuncionario SERIAL PRIMARY KEY,
+    nmfuncionario VARCHAR(100) NOT NULL,
+    iddepartamento INT REFERENCES departamentos(iddepartamento)
+);
+
+CREATE TABLE projetos (
+    idprojeto SERIAL PRIMARY KEY,
+    nmprojeto VARCHAR(150) NOT NULL,
+    descricao TEXT,
+    datainicio DATE NOT NULL,
+    datafim DATE,
+    situacao VARCHAR(20),
+    idresponsavel INT REFERENCES funcionarios(idfuncionario)
+);
+
+CREATE TABLE projetosrelacionamentos (
+    idrelacionamento SERIAL PRIMARY KEY,
+    idprojeto INT REFERENCES projetos(idprojeto),
+    idprojetorelacionado INT REFERENCES projetos(idprojeto),
+    CONSTRAINT unique_projetos_relacionados UNIQUE (idprojeto, idprojetorelacionado)
+);
+
+CREATE TABLE atividades (
+    idatividade SERIAL PRIMARY KEY,
+    nmatividade VARCHAR(150) NOT NULL,
+    descricao TEXT,
+    datainicio DATE NOT NULL,
+    datafim DATE,
+    situacao VARCHAR(20),
+    idprojeto INT REFERENCES projetos(idprojeto),
+    idresponsavel INT REFERENCES funcionarios(idfuncionario)
+);
+
+-- Inserção de dados
+
+-- Departamentos
+INSERT INTO departamentos (nmdepartamento) VALUES
+('Desenvolvimento'),
+('Marketing'),
+('Financeiro');
+
+-- Funcionários
+INSERT INTO funcionarios (nmfuncionario, iddepartamento) VALUES
+('Alice Silva', 1),
+('Bruno Costa', 1),
+('Carla Mendes', 2),
+('Diego Rocha', 3),
+('Eduarda Lima', 1);
+
+-- Projetos
+INSERT INTO projetos (nmprojeto, descricao, datainicio, datafim, situacao, idresponsavel) VALUES
+('Sistema de CRM', 'Desenvolvimento de um sistema de CRM para clientes', '2024-01-15', NULL, 'Ativo', 1),
+('Aplicativo Mobile', 'Criação de um aplicativo para Android e iOS', '2024-02-10', NULL, 'Ativo', 2),
+('Sistema de Pagamentos', 'Integração com gateways de pagamento', '2024-03-01', '2024-04-01', 'Encerrado', 4),
+('Painel de Métricas', 'Dashboard com indicadores de negócio', '2024-01-20', NULL, 'Ativo', 3),
+('Portal do Cliente', 'Área do cliente com login e histórico', '2024-03-15', NULL, 'Ativo', 1);
+
+-- Relacionamentos entre projetos
+INSERT INTO projetosrelacionamentos (idprojeto, idprojetorelacionado) VALUES
+(1, 2),
+(1, 3);
+
+-- Atividades
+INSERT INTO atividades (nmatividade, descricao, datainicio, datafim, situacao, idprojeto, idresponsavel) VALUES
+('Planejamento Inicial', 'Planejamento das etapas iniciais do CRM', '2024-01-16', '2024-01-20', 'Encerrado', 1, 1),
+('Levantamento de Requisitos', 'Entrevistas com clientes e coleta de dados', '2024-01-21', '2024-01-30', 'Encerrado', 1, 2),
+('Desenvolvimento Backend', 'Criação das APIs principais do sistema', '2024-02-01', NULL, 'Em Andamento', 1, 1),
+('Desenvolvimento Frontend', 'Construção da interface com React', '2024-02-10', NULL, 'Pendente', 1, 2),
+('Design de Interfaces', 'Criação dos mockups do app mobile', '2024-02-12', '2024-02-20', 'Encerrado', 2, 5),
+('Configuração Firebase', 'Setup de autenticação e banco de dados', '2024-02-21', NULL, 'Em Andamento', 2, 2),
+('Testes de Integração', 'Validação entre módulos', '2024-03-01', NULL, 'Pendente', 2, 1),
+('Planejamento Financeiro', 'Definição de metas e orçamento', '2024-03-01', '2024-03-05', 'Encerrado', 3, 4),
+('Integração com Stripe', 'Configuração de pagamentos com Stripe', '2024-03-06', '2024-03-30', 'Encerrado', 3, 4),
+('Relatórios de Transações', 'Relatórios mensais de uso', '2024-03-15', NULL, 'Pendente', 3, 4),
+('Wireframes Dashboard', 'Protótipos das telas de métricas', '2024-01-21', '2024-01-25', 'Encerrado', 4, 3),
+('Desenvolvimento do Dashboard', 'Criação das visualizações', '2024-01-26', NULL, 'Em Andamento', 4, 3),
+('Revisão de Layout', 'Melhorias no design visual', '2024-02-10', NULL, 'Pendente', 4, 5),
+('Levantamento Funcional', 'Análise dos recursos da área do cliente', '2024-03-16', NULL, 'Em Andamento', 5, 1),
+('Configuração do Servidor', 'Setup inicial do ambiente', '2024-03-17', NULL, 'Pendente', 5, 2),
+('Implementação Login', 'Sistema de autenticação com JWT', '2024-03-18', NULL, 'Pendente', 5, 1),
+('Teste de Usabilidade', 'Aplicação de testes com usuários reais', '2024-03-20', NULL, 'Pendente', 5, 3);
