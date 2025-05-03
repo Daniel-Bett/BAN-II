@@ -96,12 +96,10 @@ class Projeto:
 
     def atualizar_situacao_suspensa(self):
         print(self.situacao)
-        # Verifica se o projeto está "Ativo"
         if self.situacao != 'Ativo':
             print("Erro: O projeto precisa estar 'Ativo' para ser colocado em 'Suspenso'.")
             return
 
-        # Caso a situação seja "Ativo", muda para "Suspenso"
         con = Conector()
         con.conectar()
         sql = "UPDATE projetos SET situacao = %s WHERE idprojeto = %s"
@@ -111,12 +109,10 @@ class Projeto:
         print(f"Projeto {self.idprojeto} agora está 'Suspenso'.")
     
     def atualizar_situacao_reativar(self):
-        # Verifica se o projeto está "Suspenso"
         if self.situacao != 'Suspenso':
             print("Erro: O projeto precisa estar 'Suspenso' para ser reativado.")
             return
 
-        # Caso a situação seja "Suspenso", muda para "Ativo"
         con = Conector()
         con.conectar()
         sql = "UPDATE projetos SET situacao = %s WHERE idprojeto = %s"
@@ -126,22 +122,17 @@ class Projeto:
         print(f"Projeto {self.idprojeto} agora está 'Ativo'.")
 
     def criar_por_id(idprojeto):
-        # Conectar ao banco de dados
         con = Conector()
         con.conectar()
 
-        # Buscar os dados do projeto pelo ID
         sql = "SELECT idprojeto, nmprojeto, descricao, datainicio, datafim, situacao, idresponsavel FROM projetos WHERE idprojeto = %s"
         resultado = con.consultar(sql, (idprojeto,))
         con.fechar()
 
-        # Verificar se o projeto foi encontrado
         if not resultado:
             print(f"Projeto com ID {idprojeto} não encontrado.")
             return None
 
-        # Extrair os dados do projeto
         idprojeto, nome, descricao, datainicio, datafim, situacao, idresponsavel = resultado[0]
 
-        # Criar e retornar o objeto Projeto
         return Projeto(idprojeto=idprojeto, nome=nome, descricao=descricao, datainicio=datainicio, datafim=datafim, situacao=situacao, idresponsavel=idresponsavel)
