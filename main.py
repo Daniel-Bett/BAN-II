@@ -753,7 +753,7 @@ def menu_relatorios():
                     COUNT(a.idatividade) AS atividades_totais, 
                     COALESCE(atf.qtfinalizado, 0) AS finalizadas,
 					(COUNT(a.idatividade) - COALESCE(atf.qtfinalizado, 0) ) AS Atividades_Pendentes,
-                    (COALESCE(atf.qtfinalizado, 0)::decimal/COUNT(a.idatividade)::decimal)::char(4)  AS Percentual
+                    (COALESCE(atf.qtfinalizado, 0)::decimal/COUNT(a.idatividade)::decimal*100)::char(4)  AS Percentual
                     FROM projetos p
                 INNER JOIN atividades a ON a.idprojeto = p.idprojeto 
                 INNER JOIN funcionarios f ON a.idresponsavel = f.idfuncionario 
