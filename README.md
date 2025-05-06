@@ -3,7 +3,7 @@ Projeto realziado para a disciplina de Banco de Dados II da Udesc CCT
 
 A execução principal, é feita pelo arquivo main.py
 
-Esse projeto foi criado em Python e utiliza da biblioteca de psycopg2 para utilizar dos recursos de banco de dados, sendo necessário executar a primeira vez o seguinte comando para instalar as dependencias em seu computador:
+Esse projeto foi criado em Python e utiliza da biblioteca de psycopg2 para utilizar dos recursos de banco de dados, sendo necessário executar a primeira vez o seguinte comando para instalar as dependencias em seu computador, recomendavel realizar por meio do vscode a instalação do python nas extensões e a execução deste comando abaixo:
 pip install psycopg2-binary
 
 Lembre de ter primeiramente o Python instalado em sua máquina, caso ainda não tenha
