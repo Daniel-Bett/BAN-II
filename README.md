@@ -13,3 +13,6 @@ Lembre de ter primeiramente o Python instalado em seu computador e o Postgresql 
 Se por acaso, a versão do python em seu computador for antigo, é preciso instalar ainda o Pip, sendo necessário instalar uma versão mais recente do Python.
 
 Também é preciso que para conectar em seu banco de dados, altere as credencias do arquivo config.py, como foi mostrado em vídeo, trocando a senha para conectar ao banco, que é somente para colocar as credencias configuradas em seu localhost usadas para conectar ao banco.
+
+
+Para executar este projeto, no seu VSCODE descompacte o arquivo .zip, abra essa pasta pelo VSCODE e após ter todas as premissas acima, faça a execução por meio do arquivo main.py. Este arquivo contem todas as dependencias para realizar a execução correta, os demais arquivos foram feitos para facilitar na manipulação das tabelas. Toda a execução deve ser realizada por meio do arquivo main.py
